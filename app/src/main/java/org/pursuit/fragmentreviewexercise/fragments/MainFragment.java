@@ -1,28 +1,27 @@
 package org.pursuit.fragmentreviewexercise.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import org.pursuit.fragmentreviewexercise.FragmentInterface;
 import org.pursuit.fragmentreviewexercise.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MainFragment extends Fragment {
-    private FragmentInterface fragmentInterface;
+    //private FragmentInterface fragmentInterface;
 
-    private static final String ARG_PARAM1 = "param1";
+    private EditText editText;
+    private Button submitButton;
 
-    // TODO: Rename and change types of parameters
-   // private String mParam1;
 
     public MainFragment() {
         // Required empty public constructor
@@ -35,27 +34,41 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if(context instanceof FragmentInterface) {
-            fragmentInterface = ((FragmentInterface) context);
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
+    //use when using a Fragment interface
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if(context instanceof FragmentInterface) {
+//            fragmentInterface = ((FragmentInterface) context);
 //        }
-    }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootview = inflater.inflate(R.layout.fragment_main, container, false);
+        editText = rootview.findViewById(R.id.main_fragment_edit_text);
+        submitButton = rootview.findViewById(R.id.main_fragment_button);
+        return rootview;
     }
 
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = editText.getText().toString();
+
+                NextFragment nextFragment = NextFragment.newInstance(text);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, nextFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                Toast.makeText(v.getContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

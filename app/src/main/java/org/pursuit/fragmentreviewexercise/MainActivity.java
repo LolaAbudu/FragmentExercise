@@ -8,7 +8,7 @@ import android.os.Bundle;
 import org.pursuit.fragmentreviewexercise.fragments.MainFragment;
 import org.pursuit.fragmentreviewexercise.fragments.NextFragment;
 
-public class MainActivity extends AppCompatActivity implements FragmentInterface{
+public class MainActivity extends AppCompatActivity{
 
 
 
@@ -17,18 +17,18 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainFragment mainFragment = MainFragment.newInstance("");
+        MainFragment mainFragment = MainFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, mainFragment);
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void showFirstFragment(String text) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, NextFragment.newInstance(""))
-                .addToBackStack(null)
-                .commit();
-    }
+//    @Override
+//    public void showFirstFragment(String text) {
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.main_container, NextFragment.newInstance(""))
+//                .addToBackStack(null)
+//                .commit();
+//    }
 }

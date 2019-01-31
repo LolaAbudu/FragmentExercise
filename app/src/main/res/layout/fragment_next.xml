@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NextFragment">
+    tools:context=".fragments.NextFragment"
+    android:background="#42f4b0">
 
     <TextView
         android:id="@+id/next_fragment_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="TextView String" />
+        android:hint="@string/textview_string_hint"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="50sp"/>
 
 </FrameLayout>
